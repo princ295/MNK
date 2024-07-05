@@ -43,7 +43,6 @@ const CreateUser: React.FC<CreateUserProps> = ({ onClose, isvisible }) => {
 
     alert('account create sucessfully');
     onClose()
-
   }
 
 

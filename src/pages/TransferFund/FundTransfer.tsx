@@ -1,5 +1,5 @@
 
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { AutoSuggestion } from "../../components/Inputs/AutoSuggation"
 import Text from "../../components/Inputs/Text"
 import Layout from "../Layout"
@@ -20,20 +20,12 @@ const FundTransfer: React.FC<FundTransfer> = () => {
   const data: User[] = useSelector((state: RootState) => state.database.users);
   const dispatch = useAppDispatch();
 
-
-  console.log(data, 'data')
-
-
-
   const [formData, setFormData] = useState({
     ammount: ''
   })
 
-
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const data = Object.fromEntries(new FormData(e.currentTarget));
-
     const formData = new FormData(e.currentTarget)
 
     const payload: {
@@ -55,10 +47,15 @@ const FundTransfer: React.FC<FundTransfer> = () => {
         time: new Date()
       }
     }
+    dispatch(fundTransfer(payload))
 
-    dispatch(
-      fundTransfer(payload))
-
+    // @ts-ignore
+    document.getElementById('form').value = ""
+    // @ts-ignore
+    document.getElementById('to').value = ""
+    // @ts-ignore
+    document.getElementById('ammount').value = "";
+    e.currentTarget.reset()
   }
 
   const formValue = () => { }
@@ -105,12 +102,16 @@ const FundTransfer: React.FC<FundTransfer> = () => {
     getCurrencyData(e.target.value)
   }
 
+  const onReset = (e: React.FormEvent<HTMLFormElement>) => {
+    e.currentTarget.reset()
+  }
+
   return (
     <Layout>
       <div style={{ width: 550, margin: '50px auto', padding: 10 }}>
         <fieldset style={{ padding: 15, borderRadius: 3 }}>
           <legend>Fund Teansfer</legend>
-          <form autoComplete="off" onSubmit={onSubmit}>
+          <form onReset={onReset} autoComplete="off" onSubmit={onSubmit}>
             <div className="col-two">
               <AutoSuggestion name="form" data={data} callback={formValue} placeholder="From" />
               <AutoSuggestion name="to" data={data} callback={tovalue} placeholder="To" />
@@ -140,7 +141,8 @@ const FundTransfer: React.FC<FundTransfer> = () => {
             </div>
             <br />
             <div className="modal__btn">
-              <button className="w-100 --submit">Transfer Fund</button>
+              <button type="submit" className="w-100 --submit">Transfer Fund</button>
+              <button type="reset" className="w-100 --submit">Reset</button>
             </div>
           </form>
         </fieldset>

@@ -29,7 +29,7 @@ const Text: React.FC<TextPops> = ({ name, type, label, placeholder, onChnage, va
     }
   }
   return (
-    <input value={st}  onChange={handleChange} required type={type} id={name} name={name} placeholder={placeholder}/>
+    <input value={st} onChange={handleChange} required type={type} id={name} name={name} placeholder={placeholder}/>
   )
 }
 

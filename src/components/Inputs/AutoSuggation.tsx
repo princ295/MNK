@@ -42,6 +42,7 @@ export const AutoSuggestion: React.FC<AutoSuggestionPorps> = ({ name, placeholde
       getSuggestionValue={suggestion => suggestion.name}
       renderSuggestion={suggestion => <span>{suggestion.name}</span>}
       inputProps={{
+        id: name,
         name: name,
         placeholder: placeholder,
         value: value,
