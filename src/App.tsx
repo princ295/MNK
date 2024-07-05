@@ -39,10 +39,6 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route path="/fund-transfer"
-            render={(props) => <FundTransfer {...props} />}
-          />
-
           <Route path="/fund-transfer">
             {
               isAuth ? <FundTransfer /> : <><LoginModal /></>
