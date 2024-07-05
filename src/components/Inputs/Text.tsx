@@ -12,7 +12,7 @@ interface TextPops {
   value?: string
 }
 
-const Text: React.FC<TextPops> = ({ name, type, label, placeholder, onChnage, value }) => {
+const Text: React.FC<TextPops> = ({ name, type, placeholder, onChnage, value }) => {
 
   const [st, setSt] = useState('')
 
@@ -22,7 +22,7 @@ const Text: React.FC<TextPops> = ({ name, type, label, placeholder, onChnage, va
     }
   },[value])
 
-  const handleChange = (e) => {
+  const handleChange = (e:any) => {
     setSt(e.target.value)
     if(onChnage){
       onChnage(e)
